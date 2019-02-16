@@ -16,7 +16,6 @@ class User
     $password  = md5($data['password']);
     $chk_email = $this-> emailCheck($email);
 
-
     if(empty($name) || empty($userName) || empty($email) || empty($password)){
 
       $message = "<div class='alert alert-danger'><strong>Error ! </strong>Field Must not be empty</div>";
@@ -116,7 +115,7 @@ class User
     $stmt->bindValue(':email', $email);
     $stmt->bindValue(':password', md5($password));
     $stmt->execute();
-    return $result = $stmt -> fetch(PDO::FETCH_OBJ);
+    return $result = $stmt -> fetch(PDO::FETCH_OBJ);  // using object
   }
   public function loginCheckEmail($email){
     $sql  = "SELECT email FROM user WHERE email=:email";
@@ -198,7 +197,6 @@ class User
       return $message;
     }
 
-
     $sql  = "UPDATE user SET name=:name, username=:username, email=:email WHERE id=:id";
     $stmt = $this->db->pdo->prepare($sql);
     $stmt->bindParam(':name', $name);
@@ -222,7 +220,6 @@ class User
     $oldPassword 	= $data['oldpassword'];
     $newPassword  = $data['newpassword'];
     $chk_password = $this->checkPassword($oldPassword, $user_id);
-
 
     if(empty($oldPassword) || empty($newPassword)){
       $message = "<div class='alert alert-danger'><strong>Error ! </strong>Field Must not be empty</div>";
